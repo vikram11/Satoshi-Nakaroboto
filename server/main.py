@@ -81,7 +81,7 @@ async def call_llm(prompt: str, system_prompt: str, config: dict) -> str:
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://satoshi.appvibe.cloud", # Required by OpenRouter
+        "HTTP-Referer": "https://satoshibot.appvibe.cloud",  # Updated to match actual domain
         "X-Title": "Satoshi Nakaroboto"
     }
 
@@ -96,6 +96,9 @@ async def call_llm(prompt: str, system_prompt: str, config: dict) -> str:
             {"role": "user", "content": prompt}
         ]
     }
+
+    # Debug logging
+    logger.info(f"Calling OpenRouter API with model: {model}, API key prefix: {api_key[:15]}...")
 
     async with httpx.AsyncClient() as client:
         try:
