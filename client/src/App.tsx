@@ -13,11 +13,11 @@ function App() {
       <header className="border-b border-neutral-900 p-4 sticky top-0 bg-background/90 backdrop-blur z-10">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div>
-            <h1 className="text-xl md:text-2xl font-mono font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary">
+            <h1 className="text-xl md:text-2xl font-mono font-bold tracking-tighter text-secondary">
               SATOSHI_NAKAROBOTO
             </h1>
-            <p className="text-[10px] text-neutral-600 font-mono tracking-widest hidden md:block">
-              DECENTRALIZED KNOWLEDGE ORACLE
+            <p className="text-[10px] text-neutral-500 font-mono tracking-widest hidden md:block">
+              AI AVATAR OF THE INVENTOR OF BITCOIN
             </p>
           </div>
           <div className="flex gap-4 text-xs font-mono text-neutral-600">
@@ -38,12 +38,14 @@ function App() {
           <span>Powered by Cryptography</span>
 
           {/* Subtle Admin Button */}
+          {/* Admin Button */}
           <button
             onClick={() => setIsAdminOpen(true)}
-            className="opacity-10 hover:opacity-100 transition-opacity p-1"
+            className="opacity-100 text-secondary/70 hover:text-secondary transition-colors p-1 flex items-center gap-2"
             title="System Configuration"
           >
             <ShieldAlert size={12} />
+            <span className="font-mono">SYSTEM_CONFIG</span>
           </button>
         </div>
       </footer>

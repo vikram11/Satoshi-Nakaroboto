@@ -10,7 +10,7 @@ interface Message {
 
 export const ChatInterface: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([
-        { role: 'assistant', content: 'The nature of Bitcoin is such that once version 0.1 was released, the core design was set in stone using the Book of Satoshi source knowledge. How may I clarify the protocol for you?' }
+        { role: 'assistant', content: 'I have been trained on all known writings of Satoshi Nakamoto, including the Bitcoin White Paper, emails, forum posts, and messages, as contained in the Book of Satoshi. What would you like to discuss?' }
     ]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
