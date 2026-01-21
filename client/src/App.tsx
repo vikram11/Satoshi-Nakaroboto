@@ -13,7 +13,7 @@ function App() {
       <header className="border-b border-neutral-900 p-4 sticky top-0 bg-background/90 backdrop-blur z-10">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div>
-            <h1 className="text-xl md:text-2xl font-mono font-bold tracking-tighter text-secondary">
+            <h1 className="text-xl md:text-2xl font-mono font-bold tracking-tighter text-secondary animate-pulse-glow">
               SATOSHI_NAKAROBOTO
             </h1>
             <p className="text-[10px] text-neutral-500 font-mono tracking-widest hidden md:block">
@@ -41,7 +41,7 @@ function App() {
           {/* Admin Button */}
           <button
             onClick={() => setIsAdminOpen(true)}
-            className="opacity-100 text-secondary/70 hover:text-secondary transition-colors p-1 flex items-center gap-2"
+            className="opacity-100 text-secondary/70 hover:text-secondary transition-all duration-300 p-1 flex items-center gap-2 hover:drop-shadow-[0_0_8px_rgba(0,255,65,0.6)]"
             title="System Configuration"
           >
             <ShieldAlert size={12} />

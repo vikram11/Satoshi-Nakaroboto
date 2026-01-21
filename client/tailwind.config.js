@@ -22,6 +22,7 @@ export default {
             animation: {
                 'cursor-blink': 'blink 1s step-end infinite',
                 'fade-in': 'fadeIn 0.5s ease-out forwards',
+                'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
             },
             keyframes: {
                 blink: {
@@ -31,6 +32,14 @@ export default {
                 fadeIn: {
                     '0%': { opacity: '0', transform: 'translateY(10px)' },
                     '100%': { opacity: '1', transform: 'translateY(0)' },
+                },
+                pulseGlow: {
+                    '0%, 100%': {
+                        textShadow: '0 0 10px rgba(0, 255, 65, 0.5), 0 0 20px rgba(0, 255, 65, 0.3), 0 0 30px rgba(0, 255, 65, 0.2)'
+                    },
+                    '50%': {
+                        textShadow: '0 0 20px rgba(0, 255, 65, 0.8), 0 0 30px rgba(0, 255, 65, 0.5), 0 0 40px rgba(0, 255, 65, 0.3)'
+                    },
                 }
             }
         },

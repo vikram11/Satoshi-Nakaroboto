@@ -78,9 +78,9 @@ export const ChatInterface: React.FC = () => {
                             </div>
                         )}
 
-                        <div className={`max-w-[80%] md:max-w-[70%] p-4 rounded-lg font-mono text-sm leading-relaxed ${msg.role === 'user'
+                        <div className={`max-w-[80%] md:max-w-[70%] p-4 rounded-lg font-mono text-sm leading-relaxed transition-all duration-300 hover:scale-[1.02] ${msg.role === 'user'
                             ? 'bg-neutral-800 text-neutral-200 border border-neutral-700'
-                            : 'bg-background text-secondary border border-secondary/20 shadow-[0_0_15px_rgba(0,255,65,0.1)]'
+                            : 'bg-background text-secondary border border-secondary/20 shadow-[0_0_20px_rgba(0,255,65,0.15)] hover:shadow-[0_0_30px_rgba(0,255,65,0.25)]'
                             }`}>
                             <div className="whitespace-pre-wrap">{msg.content}</div>
 
@@ -117,8 +117,8 @@ export const ChatInterface: React.FC = () => {
 
             {/* Input Area */}
             <div className="relative group">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-secondary/20 to-primary/20 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-                <div className="relative bg-black rounded-lg border border-neutral-800 flex items-end p-2 gap-2">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-secondary/20 to-primary/20 rounded-lg blur opacity-20 group-hover:opacity-40 group-focus-within:opacity-60 transition duration-500"></div>
+                <div className="relative bg-black rounded-lg border border-neutral-800 group-focus-within:border-secondary/50 transition-all duration-300 flex items-end p-2 gap-2">
 
                     <button
                         onClick={() => setWebSearch(!webSearch)}
