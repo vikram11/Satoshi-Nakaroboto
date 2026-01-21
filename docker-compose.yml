@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  server:
+    build: ./server
+    container_name: satoshi_server
+    restart: always
+    environment:
+      - PORT=8000
+      # Secrets should be injected by Coolify/Env vars
+    volumes:
+      - ./server/data:/app/data
+    networks:
+      - satoshi_net
+
+  client:
+    build: ./client
+    container_name: satoshi_client
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+    networks:
+      - satoshi_net
+
+networks:
+  satoshi_net:
+    driver: bridge

@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Node
+node_modules/
+dist/
+.DS_Store
+
+# RAG Data (Regenerate on server)
+server/data/
+
+# IDE
+.vscode/
+.idea/
