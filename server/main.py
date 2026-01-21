@@ -103,6 +103,14 @@ async def call_llm(prompt: str, system_prompt: str, config: dict) -> str:
             resp.raise_for_status()
             data = resp.json()
             return data['choices'][0]['message']['content']
+        except httpx.HTTPStatusError as e:
+            logger.error(f"LLM HTTP Error {e.response.status_code}: {e.response.text}")
+            if e.response.status_code == 404:
+                return "Error: Unable to reach the AI model. Please verify your API key is correct in SYSTEM_CONFIG (footer). A 404 error often indicates an invalid or missing API key."
+            elif e.response.status_code == 401:
+                return "Error: Authentication failed. Please check your API key in SYSTEM_CONFIG."
+            else:
+                return f"Error: AI service returned status {e.response.status_code}. Please check your configuration."
         except Exception as e:
             logger.error(f"LLM Call failed: {e}")
             return f"I encountered an error connecting to the neural network: {str(e)}"
