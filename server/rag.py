@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 VECTOR_DB_PATH = "./data/chroma_db"
 COLLECTION_NAME = "satoshi_knowledge"
 MODEL_NAME = "all-MiniLM-L6-v2"
-PDF_PATH = "../BookOfSatoshi.pdf"
+PDF_PATH = "BookOfSatoshi.pdf"
 
 class RAGEngine:
     def __init__(self):
