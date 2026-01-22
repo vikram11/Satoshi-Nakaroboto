@@ -128,11 +128,11 @@ def health_check():
 
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
-    # Determine config to use (User provided > Global default)
+    # Determine config to use - prioritize environment variables
     active_config = {
-        "provider": request.model_provider or server_config["provider"],
-        "model": request.model_name or server_config["model"],
-        "api_key": request.api_key or server_config["api_key"]
+        "provider": "openrouter",
+        "model": os.getenv("DEFAULT_MODEL") or request.model_name or server_config["model"],
+        "api_key": os.getenv("LLM_API_KEY") or request.api_key or server_config["api_key"]
     }
 
     logger.info(f"Chat request: {request.message} | Web: {request.web_search}")
