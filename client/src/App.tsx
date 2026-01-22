@@ -1,11 +1,7 @@
 import { useState } from 'react'
 import { ChatInterface } from './components/ChatInterface'
-import { AdminModal } from './components/AdminModal'
-import { ShieldAlert } from 'lucide-react'
 
 function App() {
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
-
   return (
     <div className="min-h-screen bg-background text-text flex flex-col font-display selection:bg-secondary/30 selection:text-secondary">
 
@@ -32,25 +28,12 @@ function App() {
         <ChatInterface />
       </main>
 
-      {/* Footer / Hidden Admin Trigger */}
+      {/* Footer */}
       <footer className="py-2 text-center text-[10px] text-neutral-800 border-t border-neutral-900">
-        <div className="max-w-4xl mx-auto px-4 flex justify-between items-center">
+        <div className="max-w-4xl mx-auto px-4">
           <span>Powered by Cryptography</span>
-
-          {/* Subtle Admin Button */}
-          {/* Admin Button */}
-          <button
-            onClick={() => setIsAdminOpen(true)}
-            className="opacity-100 text-secondary/70 hover:text-secondary transition-all duration-300 p-1 flex items-center gap-2 hover:drop-shadow-[0_0_8px_rgba(0,255,65,0.6)]"
-            title="System Configuration"
-          >
-            <ShieldAlert size={12} />
-            <span className="font-mono">SYSTEM_CONFIG</span>
-          </button>
         </div>
       </footer>
-
-      <AdminModal isOpen={isAdminOpen} onClose={() => setIsAdminOpen(false)} />
     </div>
   )
 }

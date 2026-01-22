@@ -29,11 +29,6 @@ class ChatResponse(BaseModel):
     response: str
     sources: List[str] = []
 
-class AdminConfig(BaseModel):
-    default_provider: str
-    default_model: str
-    default_api_key: str
-
 # --- Global State (In-memory for demo, could be DB) ---
 # In a real app, use a proper secure store.
 server_config = {
@@ -164,15 +159,3 @@ CONTEXT FROM YOUR WRITINGS:
     response_text = await call_llm(request.message, system_prompt, active_config)
 
     return ChatResponse(response=response_text, sources=context_chunks[:2]) # Return top 2 sources for UI display
-
-@app.post("/api/admin/config")
-async def update_config(config: AdminConfig, x_admin_key: str = Header(None)):
-    # Simple protection
-    if x_admin_key != os.getenv("ADMIN_PASSWORD", "satoshi123"):
-        raise HTTPException(status_code=403, detail="Unauthorized")
-    
-    server_config["provider"] = config.default_provider
-    server_config["model"] = config.default_model
-    server_config["api_key"] = config.default_api_key
-    
-    return {"status": "Configuration updated"}
