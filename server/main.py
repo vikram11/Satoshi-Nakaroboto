@@ -38,7 +38,7 @@ class AdminConfig(BaseModel):
 # In a real app, use a proper secure store.
 server_config = {
     "provider": "openrouter",
-    "model": "google/gemini-2.0-flash-exp:free", # Using free model defaults where possible
+    "model": os.getenv("DEFAULT_MODEL", "google/gemini-2.0-flash-exp:free"),
     "api_key": os.getenv("LLM_API_KEY", "") 
 }
 
@@ -46,6 +46,8 @@ server_config = {
 @app.on_event("startup")
 async def startup_event():
     logger.info("Server starting up...")
+    logger.info(f"Configured model: {server_config['model']}")
+    logger.info(f"API key present: {'Yes' if server_config['api_key'] else 'No'}")
     # Trigger ingestion if needed on startup
     try:
         rag_engine.ingest_pdf()
