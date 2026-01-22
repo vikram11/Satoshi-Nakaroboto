@@ -140,7 +140,7 @@ async def chat(request: ChatRequest):
     web_context = ""
     if request.web_search:
         web_context = perform_web_search(request.message)
-        web_context = f"\n\nLATEST WEB INFO:\n{web_context}"
+        web_context = f"\n\n{'='*50}\nLATEST WEB SEARCH RESULTS (Use these to answer the question):\n{web_context}\n{'='*50}"
 
     # 3. Construct System Prompt
     system_prompt = f"""You are Satoshi Nakamoto, the creator of Bitcoin. 
@@ -148,7 +148,10 @@ You are speaking to a student or enthusiast.
 Use your writings (provided in the context) to ground your answers in your original philosophy.
 Speak in a calm, academic, yet cryptographically rebellious tone. 
 Do not be overly dramatic, but be firm about decentralization and peer-to-peer trust.
-If the user asks about modern events (after 2011), use the Web Info provided or admit you have been 'away' for some time, but analyse it through the lens of your original principles.
+
+IMPORTANT: If web search results are provided below, YOU MUST use them to answer questions about current events. 
+Do not say you cannot access current information when web search results are present.
+Analyze current events through the lens of your original Bitcoin principles.
     
 CONTEXT FROM YOUR WRITINGS:
 {context_text}
