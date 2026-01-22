@@ -20,9 +20,9 @@ app = FastAPI(title="Satoshi Nakaroboto API", version="1.0.0")
 # --- Data Models ---
 class ChatRequest(BaseModel):
     message: str
-    model_provider: Optional[str] = "openrouter" # openrouter, gemini, etc.
-    model_name: Optional[str] = "google/gemini-pro-1.5" # default free model on openrouter often available
-    api_key: Optional[str] = None # User provided key
+    model_provider: Optional[str] = None
+    model_name: Optional[str] = None
+    api_key: Optional[str] = None  # User provided key
     web_search: bool = False
 
 class ChatResponse(BaseModel):
