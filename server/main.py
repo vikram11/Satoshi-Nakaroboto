@@ -57,7 +57,9 @@ def perform_web_search(query: str) -> str:
             if not results:
                 return "No web search results found."
             summary = "\n".join([f"- {r['title']}: {r['body']}" for r in results])
-            return summary
+            # Sanitize to remove potential binary or invalid UTF-8 characters
+            sanitized_summary = "".join(char for char in summary if char.isprintable() or char in "\n\r\t")
+            return sanitized_summary[:1000] # Truncate to prevent accidental context overflow
     except Exception as e:
         logger.error(f"Web search failed: {e}")
         return "Web search unavailable."
@@ -104,13 +106,22 @@ async def call_llm(prompt: str, system_prompt: str, config: dict) -> str:
             data = resp.json()
             return data['choices'][0]['message']['content']
         except httpx.HTTPStatusError as e:
-            logger.error(f"LLM HTTP Error {e.response.status_code}: {e.response.text}")
-            if e.response.status_code == 404:
-                return "Error: Unable to reach the AI model. Please verify your API key is correct in SYSTEM_CONFIG (footer). A 404 error often indicates an invalid or missing API key."
+            try:
+                error_detail = e.response.json()
+                msg = error_detail.get("error", {}).get("message", e.response.text)
+            except:
+                msg = e.response.text
+            
+            logger.error(f"LLM HTTP Error {e.response.status_code}: {msg}")
+            
+            if e.response.status_code == 400:
+                return f"Error: The AI service rejected the request (400). This usually means the prompt was too long or contained invalid data. Details: {msg}"
+            elif e.response.status_code == 404:
+                return "Error: Unable to reach the AI model. Please verify your API key and model name are correct in Coolify settings."
             elif e.response.status_code == 401:
-                return "Error: Authentication failed. Please check your API key in SYSTEM_CONFIG."
+                return "Error: Authentication failed. Please check your API key."
             else:
-                return f"Error: AI service returned status {e.response.status_code}. Please check your configuration."
+                return f"Error: AI service returned status {e.response.status_code}. {msg}"
         except Exception as e:
             logger.error(f"LLM Call failed: {e}")
             return f"I encountered an error connecting to the neural network: {str(e)}"
